@@ -12,21 +12,26 @@ docs.clear()
 
 @app.route('/', methods=['GET', 'POST'])
 def main_page():
-    return render_template('main.html', docs=docs)
+  return render_template('index_app.html')
+
+#    return render_template('main.html', docs=docs)
 
 
-@app.route('/add_text', methods=['POST'])
-def add_text():
-    text=request.form['text']
+@app.route('/document.html')
+def document():
+    return render_template('document.html')
 
-    docs.clear()
-    docs.append(Doc(text))
 
-    file_int=request.form['AttachedFile']
-    with open(file_int) as file:
-        text_1 = file.read()
+@app.route('/results.html')
+def results():
+    return render_template('results.html')
+#@app.route('/add_text', methods=['POST'])
+#def add_text():
+#    text=request.form['text']
 
-        
+#    docs.clear()
+#    docs.append(Doc(text))
 
-    return redirect(url_for('main_page'))
+
+#    return redirect(url_for('main_page'))
 

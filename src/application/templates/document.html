@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Application</title>
+  <meta charset="UTF-8">
+  <title>Application</title>
 </head>
- <body>
+<body>
 <h2>Document</h2>
- <form method="post" action="/add_text"><br>
-<input type="text" name="text"><br><br>
-         <button type="submit">Download text</button><br><br>
+<form method="post" action="/add_text"><br>
+<!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br><br>
+<textarea name="text" cols="100" rows="20" class="maxWidth"></textarea><br><br>
  <b>or</b><br><br>
-    <button type="submit">Attach file</button><br><br>
-     <h3>Text of document</h3>
-     <output name="out_text"></output>
+    <input type="file" name="AttachedFile"><br><br>
+    <button type="submit">Show text of document</button><br><br>
+    </form>
+<h3>Text of document</h3>
+{% for doc in docs %}
+<div>{{doc.text}}</div>
+{% endfor %}
     <br><br><br>
-    <button type="submit">Show results</button>
-</form>
+<button type="submit">Show results</button>
 </body>
 </html>
