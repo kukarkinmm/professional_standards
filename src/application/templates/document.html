@@ -4,16 +4,29 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title></title>
      <style type="text/css">
-   H1 {
-    font-family: Helvetica;
+   .h1 {
+    font-family: serif;
     font-style: italic;
     color: navy;
+    font-size: 38px;
+    font-weight:900;
    }
+
+  .mid{
+  background: url('https://sun9-33.userapi.com/7X2C65Ax90c-ccN3KU_tkZMJSmKx3bkxjYeLnA/W1Q7r6kOSpM.jpg'), rgba(255,255,255, 0.1);
+  background-size: 100%;
+  background-blend-mode: color;
+}
+  .string{
+  background: rgba(255,255,255, 0.5);
+  }
+
   </style>
 </head>
-<body bgcolor="#E0FFFF">
+<!--<body bgcolor="LightCyan">-->
 
-<h1 align="center" style="H1"><b>Document</b></h1>
+ <body class="mid">
+<h2 align="center" class="h1"><b>Document</b></h2>
 <form method="post" action="/add_text"><br>
 <!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br><br>
     <center><textarea name="text" cols="90" rows="20" class="maxWidth" ></textarea><br><br>
@@ -21,12 +34,15 @@
 <!--    <input type="file" name="AttachedFile"><br><br></center>-->
 
  <div>
-   <label for="file">Choose file to upload</label>
-   <input type="file" id="file" name="file">
+     <b>
+   <label for="file" class="string">Choose file to upload</label>
+   <input type="file" id="file" name="file" class="string">
+     </b>
  </div>
  <div>
      <br>
    <button>Submit</button>
+
  </div>
 </center>
  <!--<button type="submit">Show text of document</button><br><br>-->
