@@ -37,3 +37,5 @@ def results():
 
 #    return redirect(url_for('document'))
 
+if __name__ == '__main__':
+    app.run()
