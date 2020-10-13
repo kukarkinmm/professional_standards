@@ -5,19 +5,31 @@
   <title></title>
 </head>
 <body>
+
 <h1 align="center"><b>Document</b></h1>
 <form method="post" action="/add_text"><br>
 <!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br><br>
-<center><textarea name="text" cols="90" rows="20" class="maxWidth" ></textarea><br><br>
-    <p align="center"><b>or</b></p><br><br>
-    <input type="file" name="AttachedFile"><br><br>
- <!--   <button type="submit">Show text of document</button><br><br>-->
+    <center><textarea name="text" cols="90" rows="20" class="maxWidth" ></textarea><br><br>
+    <b>or</b><br><br><br>
+<!--    <input type="file" name="AttachedFile"><br><br></center>-->
+
+ <div>
+   <label for="file">Choose file to upload</label>
+   <input type="file" id="file" name="file" multiple>
+ </div>
+ <div>
+     <br>
+   <button>Submit</button>
+ </div>
+</center>
+ <!--<button type="submit">Show text of document</button><br><br>-->
     </form>
+
 <!--<h3>Text of document</h3>
 {% for doc in docs %}
 <div>{{doc.text}}</div>
 {% endfor %}-->
-    <br><br>
-<button type="submit">Show results</button>
+    <br><br><br>
+<center><button type="submit">Show results</button></center>
 </body>
 </html>
