@@ -3,60 +3,72 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title></title>
+
      <style type="text/css">
-   .h1 {
-    font-family: serif;
-    font-style: italic;
-    color: navy;
-    font-size: 38px;
-    font-weight:900;
-   }
 
-  .mid{
-  background: url('https://sun9-33.userapi.com/7X2C65Ax90c-ccN3KU_tkZMJSmKx3bkxjYeLnA/W1Q7r6kOSpM.jpg'), rgba(255,255,255, 0.1);
-  background-size: 100%;
-  background-blend-mode: color;
-}
-  .string{
-  background: rgba(255,255,255, 0.5);
-  }
+     .h1 {
+     font-family: serif;
+     color: rgba(12, 88, 150, 1);
+     font-size: 38px;
+     font-weight:900;
+     text-align: center;
+     }
 
-  textarea{
-overflow: auto;
-}
+     .h2 {
+     color: rgba(12, 88, 150, 1);
+     font-weight: 900;
+     }
 
-  </style>
-</head>
-<!--<body bgcolor="LightCyan">-->
+     .mid {
+     background: url('https://luxfon.com/pic/201203/640x960/luxfon.com-414.jpg'), rgba(255,255,255, 0.1);
+     background-size: 100%;
+     background-blend-mode: color;
+     }
+
+     .string {
+     background: rgba(255,255,255, 0.5);
+     }
+
+     .textarea {
+     overflow: auto;
+     }
+
+     .results_button {
+     background-color: deepskyblue;
+     border-color: steelblue;
+     }
+
+</style>
+
+ </head>
 
  <body class="mid">
-<h2 align="center" class="h1"><b>Document</b></h2>
-<form method="post" action="/add_text"><br>
-<!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br><br>
-    <center><textarea name="text" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!" style="textarea"></textarea><br><br>
-    <big><b>or</b><br><br><br></big>
-<!--    <input type="file" name="AttachedFile"><br><br></center>-->
+ <h1 class="h1">РПД</h1>
+ <form method="post" action="/add_text">
+     <center>
 
- <div>
-     <b>
-   <label for="file" class="string">Choose file to upload</label>
-   <input type="file" id="file" name="file" class="string">
-     </b>
- </div>
- <div>
-     <br>
-   <button>Submit</button>
+         <textarea name="text" cols="90" rows="20" class="maxWidth" placeholder="Введите текст РПД..." style="textarea"></textarea>
 
- </div>
-</center>
- <!--<button type="submit">Show text of document</button><br><br>-->
-    </form>
+         <h2 align="center" class="h2">ИЛИ</h2>
 
-<!--<h3>Text of document</h3>
-{% for doc in docs %}
-<div>{{doc.text}}</div>
-{% endfor %}-->
-    <br><br><br>
-<center><button type="submit">Show results</button></center>
-</body>
+         <div>
+             <b>
+                 <label for="file" class="string"></label>
+                 <input type="file" id="file" name="file" class="string">
+             </b>
+         </div>
+
+         <br>
+
+         <div>
+             <button type="submit" class="results_button">Показать результаты</button>
+         </div>
+
+     </center>
+
+ </form>
+
+ <br>
+
+ </body>
 </html>
