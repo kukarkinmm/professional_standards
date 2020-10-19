@@ -25,6 +25,12 @@
 overflow: auto;
 }
 </style>
+     <script type="text/javascript">
+function showFileName() {
+   var fil = document.getElementById("file");
+    document.writeln(fil.value);
+}
+</script>
  </head>
 
  <body class="mid">
@@ -37,8 +43,11 @@ overflow: auto;
 
  <div>
      <b>
+ <!--        <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('file').click()">File</button>
+  <input type='file' id="getFile" style="display:none">-->
    <label for="file" class="string">Choose file to upload</label>
    <input type="file" id="file" name="file" class="string">
+         <button style="display:block;width:120px; height:30px;" onclick="showFileName()">Name of file</button>
      </b>
  </div>
  <div>
@@ -47,14 +56,16 @@ overflow: auto;
 
  </div>
 </center>
+
     <br><br>
 <center><button type="submit">Show results</button></center>
-
+<br><br>
    <h2 align="center" class="h1"><b>Results</b></h2>
-    <center><output name="result" >
-{% for doc in docs %}
-        {{doc.text}}</output></center>
-{% endfor %}
+    <center><textarea name="result" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!" style="textarea">
+    {% for doc in docs %}
+        {{doc.text}}
+    {% endfor %}
+    </textarea></center>
 
     </form>
 
