@@ -3,6 +3,8 @@ from collections import namedtuple
 
 from flask import Flask, render_template, redirect, url_for, request
 
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 
@@ -17,24 +19,32 @@ def main_page():
 
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+# ALLOWED_EXTENSIONS = set(['pdf', 'docx', 'doc', 'txt'])
+ALLOWED_EXTENSIONS = set(['pdf'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route("/upload", methods=['POST'])
 def upload():
-    target = os.path.join(APP_ROOT, "files\\")
-    print(target)
+    UPLOAD_FOLDER = os.path.join(APP_ROOT, "files\\")
+    # print(UPLOAD_FOLDER)
 
-    if not os.path.isdir(target):
-        os.mkdir(target)
+    if not os.path.isdir(UPLOAD_FOLDER):
+        os.mkdir(UPLOAD_FOLDER)
 
     for file in request.files.getlist("file"):
         print(file)
-        filename = file.filename
-        destination = "\\".join([target, filename])
-        print(destination)
-        file.save(destination)
+        if file and allowed_file(file.filename):
+            # filename = file.filename
+            filename = secure_filename(file.filename)
+            destination = "\\".join([UPLOAD_FOLDER, filename])
+            print(destination)
+            file.save(destination)
+            return render_template("complete.html")
 
-    # print("File upload")
-    return render_template('complete.html')
+    # print("File uploaded")
+    return render_template("uploading_error.html")
 
 
 @app.route('/add_text', methods=['POST'])

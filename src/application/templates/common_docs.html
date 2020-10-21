@@ -73,10 +73,10 @@ function showFileName() {
     </form>
 
 <center>
-<h1>File Uploader</h1>
+    <h2 align="center" class="h1"><b>File Uploader</b></h2>
 <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" accept="files/" multiple>
-    <input type="submit" value="send">
+    <input type="submit" value="Upload">
 </form>
 </center>
 
