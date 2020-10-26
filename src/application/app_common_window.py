@@ -1,9 +1,11 @@
 import os
 from collections import namedtuple
 
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, jsonify, flash, send_from_directory
 
 from werkzeug.utils import secure_filename
+
+from werkzeug.middleware.shared_data import SharedDataMiddleware
 
 
 app = Flask(__name__)
@@ -53,6 +55,22 @@ def add_text():
     docs.clear()
     docs.append(Doc(text))
     return redirect(url_for('main_page'))
+
+#####
+files=[
+    {'id':1,
+     'file':'C:/Users/nelly/PycharmProjects/professional_standards/src/application/files/1_st_annc_slotine.pdf'
+    },
+    {'id':2,
+     'file':'bla-bla-bla'
+    }
+]
+
+@app.route('/rpds/api/v1.0/files', methods=['GET'])
+def get_files():
+    return jsonify({'files': files})
+####
+
 
 if __name__ == '__main__':
     app.run()
