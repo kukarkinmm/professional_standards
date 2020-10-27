@@ -16,8 +16,25 @@ docs.clear()
 
 @app.route('/', methods=['GET', 'POST'])
 def main_page():
-    # return render_template('common_docs.html')
-    return render_template('common_docs.html', docs=docs)
+#    # return render_template('common_docs.html')
+##    def upload_file():
+#        if request.method == 'POST':
+#            # check if the post request has the file part
+#            if 'file' not in request.files:
+#                flash('No file part')
+#                return redirect(request.url)
+#            file = request.files['file']
+#            # if user does not select file, browser also
+#            # submit an empty part without filename
+#            if file.filename == '':
+#                flash('No selected file')
+#                return redirect(request.url)
+#            if file and allowed_file(file.filename):
+#                filename = secure_filename(file.filename)
+#                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#              return redirect(url_for('uploaded_file',
+#                                       filename=filename))
+         return render_template('common_docs.html', docs=docs)
 
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -43,10 +60,11 @@ def upload():
             destination = "\\".join([UPLOAD_FOLDER, filename])
             print(destination)
             file.save(destination)
-            return render_template("complete.html")
-
+#            return render_template("complete.html")
     # print("File uploaded")
-    return render_template("uploading_error.html")
+#    return render_template("uploading_error.html")
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
 
 
 @app.route('/add_text', methods=['POST'])
@@ -57,19 +75,24 @@ def add_text():
     return redirect(url_for('main_page'))
 
 #####
-files=[
-    {'id':1,
-     'file':'C:/Users/nelly/PycharmProjects/professional_standards/src/application/files/1_st_annc_slotine.pdf'
-    },
-    {'id':2,
-     'file':'bla-bla-bla'
-    }
-]
+#files=[
+#    {'id':1,
+#     'file':''
+#    },
+#    {'id':2,
+#     'file':''
+#    }
+#]
 
-@app.route('/rpds/api/v1.0/files', methods=['GET'])
-def get_files():
-    return jsonify({'files': files})
+#@app.route('/rpds/api/v1.0/files', methods=['GET'])
+#def get_files():
+#    return jsonify({'files': files})
 ####
+
+
+#@app.route('/rpds/api/v1.0/files', methods=['GET'])
+#def get_files():
+#    return jsonify({'files': files})
 
 
 if __name__ == '__main__':

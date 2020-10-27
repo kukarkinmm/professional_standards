@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'C:/Users/nelly/PycharmProjects/professional_standards/src/application/files'
@@ -31,6 +31,8 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('uploaded_file',
                                     filename=filename))
+#            return url_for('uploaded_file',
+#                            filename=filename)
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -49,6 +51,17 @@ def uploaded_file(filename):
                                filename)
 
 
+files=[
+    {'id':1,
+     'file': 'bla-bla-bla'
+    }
+]
+
+@app.route('/rpds/api/v1.0/files', methods=['GET'])
+def get_files():
+    return jsonify({'files': files})
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+#    app.run(debug=True)
+     app.run(debug=True)
