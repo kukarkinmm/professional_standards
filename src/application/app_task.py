@@ -10,11 +10,11 @@ docs=[]
 docs.clear()
 
 
-@app.route('/', methods=['GET', 'POST'])
-def main_page():
+#@app.route('/', methods=['GET', 'POST'])
+#def main_page():
 #  return render_template('index_app.html')
-
-    return render_template('index_app.html', docs=docs)
+#
+#    return render_template('index_app.html', docs=docs)
 
 
 @app.route('/document.html')

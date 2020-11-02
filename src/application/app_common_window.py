@@ -63,7 +63,7 @@ def upload():
 #            return render_template("complete.html")
     # print("File uploaded")
 #    return render_template("uploading_error.html")
-            return redirect(url_for('uploaded_file',
+            return redirect(url_for('upload',
                                     filename=filename))
 
 
@@ -84,16 +84,11 @@ def add_text():
 #    }
 #]
 
-#@app.route('/rpds/api/v1.0/files', methods=['GET'])
-#def get_files():
-#    return jsonify({'files': files})
-####
 
-
-#@app.route('/rpds/api/v1.0/files', methods=['GET'])
-#def get_files():
-#    return jsonify({'files': files})
+@app.route('/rpds/api/v1.0/files', methods=['GET'])
+def get_files():
+    return jsonify({'text':docs})
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
