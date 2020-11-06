@@ -1,7 +1,7 @@
 import os
 from collections import namedtuple
 
-from flask import Flask, render_template, redirect, url_for, request, jsonify, flash, send_from_directory
+from flask import Flask, render_template, redirect, url_for, request, jsonify, flash, send_from_directory, abort
 
 from werkzeug.utils import secure_filename
 
@@ -87,8 +87,20 @@ def add_text():
 
 @app.route('/rpds/api/v1.0/files', methods=['GET'])
 def get_files():
-    return jsonify({'text':docs})
+    return jsonify({'text':docs[0]})
+
+
+@app.route('/rpds/api/v1.0/files', methods=['POST'])
+def create_text():
+    if not request.json:
+        abort(400)
+    text = {
+        'id': docs[-1]['id'] + 1,
+        'text': request.json.get('text', ""),
+    }
+    docs.append(text)
+    return jsonify({'text': text}), 201
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
