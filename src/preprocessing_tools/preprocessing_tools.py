@@ -2,19 +2,23 @@
 import re
 import os
 from tika import parser
-#from nltk.corpus import stopwords
+import nltk
 from razdel import tokenize # pip install razdel # https://github.com/natasha/razdel
 import pymorphy2 # pip install pymorphy2
 
 class preprocessing_tools:
-    morph = pymorphy2.MorphAnalyzer()
     
    # stopword_ru = [] #stopwords.words('russian')
    # with open('stopwords.txt', 'r', encoding='utf-8') as f:
    #     for w in f.readlines():
    #         stopword_ru.append(re.sub('\n','',w))
     
-    cache = {}  # для кеша лемм
+    # cache = {}  # для кеша лемм
+    # morph = pymorphy2.MorphAnalyzer()
+    
+    nltk.download('stopwords')
+    stopword_ru = set(nltk.corpus.stopwords.words('russian'))    
+    
     
     def __init__(self):
         self.stopwords = []
@@ -23,6 +27,7 @@ class preprocessing_tools:
                 self.stopwords.append(re.sub('\n','',w))
     
     
+    @staticmethod
     def clean_text(text):
         '''
         очистка текста
@@ -45,6 +50,7 @@ class preprocessing_tools:
         return text
     
     
+    @staticmethod
     def lemmatization(text):
         '''
         лемматизация
@@ -59,6 +65,11 @@ class preprocessing_tools:
         на выходе - лист отлемматизированых токенов
         '''
         
+        # stopword_ru = stopwords.words('russian')
+        stopword_ru = set(nltk.corpus.stopwords.words('russian'))    
+        morph = pymorphy2.MorphAnalyzer()
+        cache = {}  # для кеша лемм
+
         # [0]
         if not isinstance(text, str):
             text = str(text)
@@ -83,12 +94,19 @@ class preprocessing_tools:
         return words_lem_without_stopwords
     
     
+    @staticmethod
     def stop_words_remove(text):
         '''
         очистка текста от стоп-слов
         
         на выходе - очищенный от стоп-слов текст
         '''
+        
+        # stopword_ru = stopwords.words('russian')
+        stopword_ru = set(nltk.corpus.stopwords.words('russian'))    
+        morph = pymorphy2.MorphAnalyzer()
+        cache = {}  # для кеша лемм
+
         # [0]
         if not isinstance(text, str):
             text = str(text)
@@ -115,6 +133,7 @@ class preprocessing_tools:
         return words_lem_without_stopwords_string
     
     
+    @staticmethod
     def extract_text_from_pdfs_recursively(dir):
         '''
         получение содержимого всех pdf документов в директории
