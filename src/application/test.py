@@ -13,6 +13,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -31,8 +32,8 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('uploaded_file',
                                     filename=filename))
-#            return url_for('uploaded_file',
-#                            filename=filename)
+    #            return url_for('uploaded_file',
+    #                            filename=filename)
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -43,7 +44,9 @@ def upload_file():
     </form>
     '''
 
+
 from flask import send_from_directory
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
@@ -51,11 +54,12 @@ def uploaded_file(filename):
                                filename)
 
 
-files=[
-    {'id':1,
+files = [
+    {'id': 1,
      'file': 'bla-bla-bla'
-    }
+     }
 ]
+
 
 @app.route('/rpds/api/v1.0/files', methods=['GET'])
 def get_files():
@@ -63,5 +67,5 @@ def get_files():
 
 
 if __name__ == '__main__':
-#    app.run(debug=True)
-     app.run(debug=True)
+    #    app.run(debug=True)
+    app.run(debug=True)
