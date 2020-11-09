@@ -1,13 +1,12 @@
-import xml.etree.ElementTree as et
 from os import listdir
 from os.path import isfile, join
+import xml.etree.ElementTree as et
 
 
 class XmlParser(object):
 
     def __init__(self, path):
         self.root = et.parse(path).getroot()
-        self.data = et.SubElement(self.root, "ProfessionalStandart")
 
     def get_name(self):
         return self.root.find(".//NameProfessionalStandart").text
@@ -29,30 +28,10 @@ class XmlParser(object):
             "\n".join({el.text for el in self.root.findall(".//RequirementsWorkExperience")})
         })
     
-    """
-    @staticmethod
-    def extract_text_from_xmls_recursively(dir):
-        '''
-        получение содержимого всех xml документов в директории
-        '''
-        all_texts = []
-        for root, dirs, files in os.walk(dir):
-            for file in files:
-                path_to_xml = os.path.join(root, file)
-                [stem, ext] = os.path.splitext(path_to_xml)
-                if ext == '.xml':
-                    print("Processing " + path_to_xml)
-                    XmlParser = XmlParser(path_to_xml)
-                    text = XmlParser.get_relevant_text()
-                    # xml_contents = XmlParser.get_relevant_text(path_to_xml)
-                    # text = xml_contents['content']
-                    all_texts.append(text)
-        return all_texts
-    """
-    
     @staticmethod
     def extract_text_from_xmls(path):
         files = [f for f in listdir(path) if isfile(join(path, f))]
-        # profstandards = [XmlParser(f"{path}/{f}").get_relevant_text() for f in files]
-        profstandards = [XmlParser(join(path, f)).get_relevant_text() for f in files if f.endswith(".xml")]
-        return profstandards
+        return [XmlParser(f"{path}/{f}").lol() for f in files if f.endswith(".xml")]
+
+    def lol(self):
+        return et.tostring(self.root, encoding='utf-8', method='text').decode('utf-8')
