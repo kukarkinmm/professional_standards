@@ -1,4 +1,6 @@
 import xml.etree.ElementTree as et
+from os import listdir
+from os.path import isfile, join
 
 
 class XmlParser(object):
@@ -27,8 +29,9 @@ class XmlParser(object):
             "\n".join({el.text for el in self.root.findall(".//RequirementsWorkExperience")})
         })
     
+    """
     @staticmethod
-    def extract_text_from_pdfs_recursively(dir):
+    def extract_text_from_xmls_recursively(dir):
         '''
         получение содержимого всех xml документов в директории
         '''
@@ -39,7 +42,17 @@ class XmlParser(object):
                 [stem, ext] = os.path.splitext(path_to_xml)
                 if ext == '.xml':
                     print("Processing " + path_to_xml)
-                    xml_contents = XmlParser.get_relevant_text(path_to_xml)
-                    text = xml_contents['content']
+                    XmlParser = XmlParser(path_to_xml)
+                    text = XmlParser.get_relevant_text()
+                    # xml_contents = XmlParser.get_relevant_text(path_to_xml)
+                    # text = xml_contents['content']
                     all_texts.append(text)
         return all_texts
+    """
+    
+    @staticmethod
+    def extract_text_from_xmls(path):
+        files = [f for f in listdir(path) if isfile(join(path, f))]
+        # profstandards = [XmlParser(f"{path}/{f}").get_relevant_text() for f in files]
+        profstandards = [XmlParser(join(path, f)).get_relevant_text() for f in files if f.endswith(".xml")]
+        return profstandards
