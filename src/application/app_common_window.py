@@ -7,42 +7,48 @@ from werkzeug.utils import secure_filename
 
 from werkzeug.middleware.shared_data import SharedDataMiddleware
 
+from src.models.model import Model
 
 app = Flask(__name__)
 
-Doc=namedtuple('Doc','text')
-docs=[]
+Doc = namedtuple('Doc', 'text')
+docs = []
 docs.clear()
+
+model = Model()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def main_page():
-#    # return render_template('common_docs.html')
-##    def upload_file():
-#        if request.method == 'POST':
-#            # check if the post request has the file part
-#            if 'file' not in request.files:
-#                flash('No file part')
-#                return redirect(request.url)
-#            file = request.files['file']
-#            # if user does not select file, browser also
-#            # submit an empty part without filename
-#            if file.filename == '':
-#                flash('No selected file')
-#                return redirect(request.url)
-#            if file and allowed_file(file.filename):
-#                filename = secure_filename(file.filename)
-#                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#              return redirect(url_for('uploaded_file',
-#                                       filename=filename))
-         return render_template('common_docs.html', docs=docs)
+    #    # return render_template('common_docs.html')
+    ##    def upload_file():
+    #        if request.method == 'POST':
+    #            # check if the post request has the file part
+    #            if 'file' not in request.files:
+    #                flash('No file part')
+    #                return redirect(request.url)
+    #            file = request.files['file']
+    #            # if user does not select file, browser also
+    #            # submit an empty part without filename
+    #            if file.filename == '':
+    #                flash('No selected file')
+    #                return redirect(request.url)
+    #            if file and allowed_file(file.filename):
+    #                filename = secure_filename(file.filename)
+    #                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    #              return redirect(url_for('uploaded_file',
+    #                                       filename=filename))
+    return render_template('common_docs.html', docs=docs)
 
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 # ALLOWED_EXTENSIONS = set(['pdf', 'docx', 'doc', 'txt'])
 ALLOWED_EXTENSIONS = set(['pdf'])
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 @app.route("/upload", methods=['POST'])
 def upload():
@@ -60,34 +66,39 @@ def upload():
             destination = "\\".join([UPLOAD_FOLDER, filename])
             print(destination)
             file.save(destination)
-#            return render_template("complete.html")
-    # print("File uploaded")
-#    return render_template("uploading_error.html")
+            #            return render_template("complete.html")
+            # print("File uploaded")
+            #    return render_template("uploading_error.html")
             return redirect(url_for('upload',
                                     filename=filename))
 
 
 @app.route('/add_text', methods=['POST'])
 def add_text():
-    text=request.form['text']
+    text = request.form['text']
+
+    result = model.closest_standards(text)
+    output = "".join([f"{r[1]}\t-\t{r[0]}\n" for r in result])
+
     docs.clear()
-    docs.append(Doc(text))
+    docs.append(Doc(output))
     return redirect(url_for('main_page'))
 
+
 #####
-#files=[
+# files=[
 #    {'id':1,
 #     'file':''
 #    },
 #    {'id':2,
 #     'file':''
 #    }
-#]
+# ]
 
 
 @app.route('/rpds/api/v1.0/files', methods=['GET'])
 def get_files():
-    return jsonify({'text':docs[0]})
+    return jsonify({'text': docs[0]})
 
 
 @app.route('/rpds/api/v1.0/files', methods=['POST'])
@@ -103,4 +114,4 @@ def create_text():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
