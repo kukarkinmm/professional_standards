@@ -17,8 +17,8 @@ class Model:
 
     def __init__(self, name=""):
         self.name = name
-        self.files = self._get_files()
-        self.vectorizer, self.profst_vecs = self._create_model()
+        self.files = self._get_files(self._path)
+        self.vectorizer, self.profst_vecs, self.standard_names = self._create_model()
         self.pdf_parser = PdfParser()
 
     def _load_model(self):
@@ -30,20 +30,22 @@ class Model:
             result = self._create_model()
         return result
 
-    def _get_files(self):
-        files = [f for f in listdir(self._path) if isfile(join(self._path, f))]
+    @staticmethod
+    def _get_files(path):
+        files = [f for f in listdir(path) if isfile(join(path, f))]
         return files
 
     def _create_model(self):
         tfidf = TfidfVectorizer()
-        profstandards = [XmlParser(f"{self._path}/{f}").lol() for f in self.files if f.endswith(".xml")]
-        vals = tfidf.fit_transform(profstandards)
-        return tfidf, vals
+        profstandards = [XmlParser(f"{self._path}/{f}").get_name_text() for f in self.files if f.endswith(".xml")]
+        vals = tfidf.fit_transform([p[1] for p in profstandards])
+        standard_names = [p[0] for p in profstandards]
+        return tfidf, vals, standard_names
 
     def closest_standards(self, text):
         vals = self.vectorizer.transform([text])
         sim = cosine_similarity(self.profst_vecs, vals)
-        result = sorted(zip(self.files, sim), key=lambda x: -x[1])
+        result = sorted(zip(self.standard_names, sim), key=lambda x: -x[1])
         return result
 
 

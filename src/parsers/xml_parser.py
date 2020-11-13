@@ -33,5 +33,5 @@ class XmlParser(object):
         files = [f for f in listdir(path) if isfile(join(path, f))]
         return [XmlParser(f"{path}/{f}").lol() for f in files if f.endswith(".xml")]
 
-    def lol(self):
-        return et.tostring(self.root, encoding='utf-8', method='text').decode('utf-8')
+    def get_name_text(self):
+        return self.get_name(), et.tostring(self.root, encoding='utf-8', method='text').decode('utf-8')
