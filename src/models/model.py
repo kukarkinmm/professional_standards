@@ -3,6 +3,8 @@ import os.path
 from os import listdir
 from os.path import isfile, join
 
+from src.preprocessing_tools.preprocessing_tools import preprocessing
+
 from src.parsers.pdf_parser import PdfParser
 from src.parsers.xml_parser import XmlParser
 
@@ -36,7 +38,7 @@ class Model:
         return files
 
     def _create_model(self):
-        tfidf = TfidfVectorizer()
+        tfidf = TfidfVectorizer(tokenizer=preprocessing)
         profstandards = [XmlParser(f"{self._path}/{f}").get_name_text() for f in self.files if f.endswith(".xml")]
         vals = tfidf.fit_transform([p[1] for p in profstandards])
         standard_names = [p[0] for p in profstandards]

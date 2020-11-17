@@ -134,6 +134,22 @@ class preprocessing_tools:
     
     
     @staticmethod
+    def preprocessing(text):
+        '''
+        [1] очистка текста
+        [2] токенизация, лемматизация, удаление стоп-слов
+        '''
+        
+        # [1]
+        cleared_text = prep_tools.clean_text(text) 
+        
+        # [2]
+        clean_text_without_stopwords = prep_tools.lemmatization(cleared_text)
+        
+        return clean_text_without_stopwords
+    
+    
+    @staticmethod
     def extract_text_from_pdfs_recursively(dir):
         '''
         получение содержимого всех pdf документов в директории
@@ -148,4 +164,5 @@ class preprocessing_tools:
                     pdf_contents = parser.from_file(path_to_pdf)
                     text = pdf_contents['content']
                     all_texts.append(text)
+                    
         return all_texts    
