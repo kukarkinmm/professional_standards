@@ -16,6 +16,11 @@
     font-size: 38px;
     font-weight:900;
    }
+   .big_green_button {
+<!--   font-family: Tahoma, Geneva, sans-serif; font-size: 14px; height: 40px; border-radius: 20px; margin: 10px; -->
+font-family: 'Open Sans Condensed', sans-serif; font-size:36px; width:180px; height:60px; border-radius:30px; margin:10px;
+background-color: #3caa3c; border: 1px solid #3caa3c; color: #ffffff;
+   }
 
   .string{
   background: rgba(255,255,255, 0.5);
@@ -26,13 +31,13 @@ overflow: auto;
 }
 
 
+
     </style>
     <script type="text/javascript">
 function showFileName() {
    var fil = document.getElementById("file");
     document.writeln(fil.value);
 }
-
 
     </script>
 </head>
@@ -43,7 +48,7 @@ function showFileName() {
     <!--    <h2 align="center" class="h1"><b>File Uploader</b></h2>-->
     <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" accept="files/" multiple>
-        <input type="submit" value="Upload">
+
 
 </center>
 <!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br>
@@ -60,6 +65,8 @@ function showFileName() {
     <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="showFileName()">Name of file</button>&ndash;&gt;-->
     <!--     </b>-->
     <!-- </div>-->
+
+    <input class="big_green_button" type="submit" value="Upload">
 </center>
 
 <!--    <br><br>-->
