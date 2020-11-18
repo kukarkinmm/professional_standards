@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <title>Main page</title>
-  <style type="text/css">
+<head>
+    <title>Main page</title>
+    <style type="text/css">
     .mid{
   background: url('https://krot.info/uploads/posts/2020-01/1579325313_1-3.jpg'),rgba(255,255,255, 0.2);
   background-size:160%;
@@ -24,61 +24,71 @@
   textarea{
 overflow: auto;
 }
-</style>
-     <script type="text/javascript">
+    </style>
+    <script type="text/javascript">
 function showFileName() {
    var fil = document.getElementById("file");
     document.writeln(fil.value);
 }
-</script>
- </head>
+    </script>
+</head>
 
- <body class="mid">
+<body class="mid">
 <h2 align="center" class="h1"><b>Document</b></h2>
-<form method="post" action="/add_text"><br>
-<!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br><br>
-    <center><textarea name="text" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!" style="textarea"></textarea><br><br>
-    <big><b>or</b><br><br><br></big>
-<!--    <input type="file" name="AttachedFile"><br><br></center>-->
-
- <div>
-     <b>
- <!--        <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('file').click()">File</button>
-  <input type='file' id="getFile" style="display:none">-->
-   <label for="file" class="string">Choose file to upload</label>
-   <input type="file" id="file" name="file" class="string">
- <!--        <button style="display:block;width:120px; height:30px;" onclick="showFileName()">Name of file</button>-->
-     </b>
- </div>
- <div>
-     <br>
-   <button>Submit</button>
-
- </div>
+<center>
+    <!--    <h2 align="center" class="h1"><b>File Uploader</b></h2>-->
+    <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="files/" multiple>
+        <input type="submit" value="Upload">
+    </form>
+    <big><br><b>or</b><br></big>
 </center>
+<form method="post" action="/add_text">
+    <!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br>
+    <center><textarea name="text" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!"
+                      style="textarea"></textarea><br><br>
 
-    <br><br>
-<center><button type="submit">Show results</button></center>
+        <!--    <input type="file" name="AttachedFile"><br><br></center>-->
+        <!-- <div>-->
+        <!--     <b>-->
+        <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('file').click()">File</button>-->
+        <!--  <input type='file' id="getFile" style="display:none">&ndash;&gt;-->
+        <!--   <label for="file" class="string">Choose file to upload</label>-->
+        <!--   <input type="file" id="file" name="file" class="string">-->
+        <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="showFileName()">Name of file</button>&ndash;&gt;-->
+        <!--     </b>-->
+        <!-- </div>-->
+        <div>
+            <button>Submit</button>
 
-    <br><br><br>
+        </div>
+        <div>
 
-<br><br>
-   <h2 align="center" class="h1"><b>Results</b></h2>
-    <center><textarea name="result" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!" style="textarea">
+        </div>
+    </center>
+
+    <!--    <br><br>-->
+    <!--<center><button type="submit">Show results</button></center>-->
+
+    <!--    <br><br><br>-->
+
+    <h2 align="center" class="h1"><b>Results</b></h2>
+    <center><textarea name="result" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!"
+                      style="textarea">
     {% for doc in docs %}
         {{doc.text}}
     {% endfor %}
     </textarea></center>
 
-    </form>
-
-<center>
-    <h2 align="center" class="h1"><b>File Uploader</b></h2>
-<form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" accept="files/" multiple>
-    <input type="submit" value="Upload">
 </form>
-</center>
+
+<!--<center>-->
+<!--    <h2 align="center" class="h1"><b>File Uploader</b></h2>-->
+<!--    <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">-->
+<!--        <input type="file" name="file" accept="files/" multiple>-->
+<!--        <input type="submit" value="Upload">-->
+<!--    </form>-->
+<!--</center>-->
 
 <br><br><br>
 <!-- <output name="result"></output>-->
