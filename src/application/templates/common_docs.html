@@ -24,12 +24,16 @@
   textarea{
 overflow: auto;
 }
+
+
     </style>
     <script type="text/javascript">
 function showFileName() {
    var fil = document.getElementById("file");
     document.writeln(fil.value);
 }
+
+
     </script>
 </head>
 
@@ -40,41 +44,32 @@ function showFileName() {
     <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" accept="files/" multiple>
         <input type="submit" value="Upload">
-    </form>
-    <big><br><b>or</b><br></big>
+
 </center>
-<form method="post" action="/add_text">
-    <!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br>
-    <center><textarea name="text" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!"
-                      style="textarea"></textarea><br><br>
+<!--<input type="text" name="text" style="height:200px;font-size:10pt;width:280px;white-space: normal;">--><br>
+<center><textarea name="text" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!"
+                  style="textarea"></textarea><br><br>
 
-        <!--    <input type="file" name="AttachedFile"><br><br></center>-->
-        <!-- <div>-->
-        <!--     <b>-->
-        <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('file').click()">File</button>-->
-        <!--  <input type='file' id="getFile" style="display:none">&ndash;&gt;-->
-        <!--   <label for="file" class="string">Choose file to upload</label>-->
-        <!--   <input type="file" id="file" name="file" class="string">-->
-        <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="showFileName()">Name of file</button>&ndash;&gt;-->
-        <!--     </b>-->
-        <!-- </div>-->
-        <div>
-            <button>Submit</button>
+    <!--    <input type="file" name="AttachedFile"><br><br></center>-->
+    <!-- <div>-->
+    <!--     <b>-->
+    <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('file').click()">File</button>-->
+    <!--  <input type='file' id="getFile" style="display:none">&ndash;&gt;-->
+    <!--   <label for="file" class="string">Choose file to upload</label>-->
+    <!--   <input type="file" id="file" name="file" class="string">-->
+    <!-- &lt;!&ndash;        <button style="display:block;width:120px; height:30px;" onclick="showFileName()">Name of file</button>&ndash;&gt;-->
+    <!--     </b>-->
+    <!-- </div>-->
+</center>
 
-        </div>
-        <div>
+<!--    <br><br>-->
+<!--<center><button type="submit">Show results</button></center>-->
 
-        </div>
-    </center>
+<!--    <br><br><br>-->
 
-    <!--    <br><br>-->
-    <!--<center><button type="submit">Show results</button></center>-->
-
-    <!--    <br><br><br>-->
-
-    <h2 align="center" class="h1"><b>Results</b></h2>
-    <center><textarea name="result" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!"
-                      style="textarea">
+<h2 align="center" class="h1"><b>Results</b></h2>
+<center><textarea name="result" cols="90" rows="20" class="maxWidth" placeholder="Remember, you're perfect!"
+                  style="textarea">
     {% for doc in docs %}
         {{doc.text}}
     {% endfor %}
