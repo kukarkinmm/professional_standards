@@ -38,7 +38,7 @@ def main_page():
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 # ALLOWED_EXTENSIONS = set(['pdf', 'docx', 'doc', 'txt'])
-ALLOWED_EXTENSIONS = set(['pdf'])
+ALLOWED_EXTENSIONS = {'pdf'}
 
 
 def allowed_file(filename):
@@ -48,13 +48,16 @@ def allowed_file(filename):
 @app.route("/upload", methods=['POST'])
 def upload():
     text = request.form['text']
+    files = request.files.getlist("file")
+    if len(text) == 0 and len(files[0].filename) == 0:
+        return redirect(url_for('main_page'))
     if bool(text) is False:
         UPLOAD_FOLDER = os.path.join(APP_ROOT, "files")
 
         if not os.path.isdir(UPLOAD_FOLDER):
             os.mkdir(UPLOAD_FOLDER)
 
-        for file in request.files.getlist("file"):
+        for file in files:
             if file and allowed_file(file.filename):
                 # filename = file.filename
                 filename = secure_filename(file.filename)
