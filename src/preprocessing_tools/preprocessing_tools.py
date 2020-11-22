@@ -27,11 +27,11 @@ class preprocessing_tools:
 
     @staticmethod
     def clean_text(text):
-        '''
+        """
         очистка текста
-            
+
         на выходе - очищенный текст
-        '''
+        """
 
         if not isinstance(text, str):
             text = str(text)
@@ -48,7 +48,7 @@ class preprocessing_tools:
         return text
 
     def lemmatization(self, text):
-        '''
+        """
         лемматизация
             [0] если зашел тип не `str` делаем его `str`
             [1] токенизация предложения через razdel
@@ -57,9 +57,9 @@ class preprocessing_tools:
             [4] проверка есть ли данное слово в кэше
             [5] лемматизация слова
             [6] проверка на стоп-слова
-            
+
         на выходе - лист отлемматизированых токенов
-        '''
+        """
 
         # stopword_ru = stopwords.words('russian')
         cache = {}  # для кеша лемм
@@ -88,11 +88,11 @@ class preprocessing_tools:
         return words_lem_without_stopwords
 
     def stop_words_remove(self, text):
-        '''
+        """
         очистка текста от стоп-слов
-        
+
         на выходе - очищенный от стоп-слов текст
-        '''
+        """
 
         # stopword_ru = stopwords.words('russian')
         cache = {}  # для кеша лемм
@@ -124,9 +124,9 @@ class preprocessing_tools:
 
     @staticmethod
     def extract_text_from_pdfs_recursively(dir):
-        '''
+        """
         получение содержимого всех pdf документов в директории
-        '''
+        """
         all_texts = []
         for root, dirs, files in os.walk(dir):
             for file in files:
@@ -137,4 +137,6 @@ class preprocessing_tools:
                     pdf_contents = parser.from_file(path_to_pdf)
                     text = pdf_contents['content']
                     all_texts.append(text)
+
+
         return all_texts
