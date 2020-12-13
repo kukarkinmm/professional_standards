@@ -36,9 +36,6 @@ class PdfParser(object):
         return volumes
 
     def extract_relevant(self, path):
-        #
-        # This is very bad method, I am ashamed of this code
-        #
         flag = False
         content = ""
         lines = self.get_lines(path)
